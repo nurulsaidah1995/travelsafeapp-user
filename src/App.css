@@ -1,10 +1,26 @@
 .App {
-  text-align: center;
+  /* display: inline-block; */
+  margin-left: 40px;
+  /* flex-direction: column; */
+  /* text-align: center; */
+  /* padding: 20px; */
+  width: 70%;
 }
+
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+/* 
+#prev:focus, #prev:active{
+  outline: none !important;
+  box-shadow: none !important;
+} */
+
+button:focus, button:active{
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
