@@ -14,7 +14,7 @@ function BookSlot(props) {
 
     return (
         <div>
-            <h1>this is Book slot page</h1>
+            {/* <h1>this is Book slot page</h1> */}
             {/* <TableComp data={props.data}/> */}
             <label>Choose your clinic:</label>
             <SlotGroup2 group="clinic" handleClick={props.setClinicSlot} data={props.clinic} />

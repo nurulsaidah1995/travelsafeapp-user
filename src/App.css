@@ -1,11 +1,21 @@
 .App {
   /* display: inline-block; */
-  margin-left: 40px;
+  /* margin-left: 40px; */
   /* flex-direction: column; */
   /* text-align: center; */
   /* padding: 20px; */
+  /* width: 70%; */
+  /* height: 100vh; */
+}
+
+.step-form{
   width: 70%;
 }
+.step-form-container{
+ display: flex;
+ justify-content: center;
+}
+
 
 
 .link {

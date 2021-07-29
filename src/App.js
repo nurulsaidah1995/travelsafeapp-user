@@ -56,10 +56,10 @@ function App() {
   //   // formatDateTime(timeSlot, dateSlot)
   // }, [timeSlot, dateSlot])
 
- 
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("timeSlot", moment(timeSlot,'HH:mm').format('HH:mm:ss'))
+    console.log("timeSlot", moment(timeSlot, 'HH:mm').format('HH:mm:ss'))
     // setTimeSlot(new Date())
     let json = {
       "name": name,
@@ -68,10 +68,10 @@ function App() {
       "phoneNo": phoneNo,
       "registered": "",
       "swabStatus": "",
-      "timeslot": moment(timeSlot,'HH:mm').format('HH:mm:ss'),
+      "timeslot": moment(timeSlot, 'HH:mm').format('HH:mm:ss'),
       "uniqueCode": "",
       "bookedDate": dateSlot,
-      "bookedTime":"09:00:00"
+      "bookedTime": "09:00:00"
     }
     console.log(json)
     let postBooking_config = {
@@ -92,7 +92,7 @@ function App() {
       .catch(function (error) {
         console.log(error);
       });
-      setActive(active+1)
+    setActive(active + 1)
   }
 
   function handlePageChange() {
@@ -147,6 +147,7 @@ function App() {
               let obj = {}
               obj.clinicID = clinic.clinicID
               obj.name = clinic.name
+              obj.address = clinic.address
               return obj;
             });
             setClinicSlots(clinics)
@@ -196,74 +197,79 @@ function App() {
             <Route path={'/form'} exact strict >
               {/* <Employee /> */}
               {/* Each Step represents the component to render */}
-              <MultiStepForm activeStep={active} accentColor="purple">
+              <div className="step-form-container">
+                <div className="step-form">
+                  <MultiStepForm activeStep={active} accentColor="purple">
+                    <Step label="flight number">
+                      <GetSlots setFlightNo={(flightNum) => setFlightNo(flightNum)} />
 
-                <Step label="flight number">
-                  <GetSlots setFlightNo={(flightNum) => setFlightNo(flightNum)} />
-                </Step>
+                    </Step>
 
-                <Step label="choose a slot">
-                  <BookSlot
-                    flight={flightNo}
-                    setTimeSlot={(slot) => setTimeSlot(slot)}
-                    setDateSlot={(slot) => setDateSlot(slot)}
-                    setClinicSlot={(slot) => setClinicSlot(slot)}
-                    time={timeslots}
-                    date={dateslots}
-                    clinic={clinicslots}
-                  />
-                </Step>
+                    <Step label="choose a slot">
+                      <BookSlot
+                        flight={flightNo}
+                        setTimeSlot={(slot) => setTimeSlot(slot)}
+                        setDateSlot={(slot) => setDateSlot(slot)}
+                        setClinicSlot={(slot) => setClinicSlot(slot)}
+                        time={timeslots}
+                        date={dateslots}
+                        clinic={clinicslots}
+                      />
+                    </Step>
 
-                <Step label="personal details">
-                  <Form onSubmit={handleSubmit}>
-                    <PersonalDetails
-                      setName={(name) => { setName(name) }}
-                      // setClinicId={(clinicId) => { setClinicId(clinicId) }}
-                      setNric={(nric) => { setNric(nric) }}
-                      setPhoneNo={(phoneNo) => { setPhoneNo(phoneNo) }}
-                    // handleSubmit={}
-                    />
-                    <Button style={{float:"right"}} type="submit">Submit</Button>
-                  </Form>
-                </Step>
+                    <Step label="personal details">
+                      <Form onSubmit={handleSubmit}>
+                        <PersonalDetails
+                          setName={(name) => { setName(name) }}
+                          // setClinicId={(clinicId) => { setClinicId(clinicId) }}
+                          setNric={(nric) => { setNric(nric) }}
+                          setPhoneNo={(phoneNo) => { setPhoneNo(phoneNo) }}
+                          clinicName={clinicslot[1]}
+                          clinicAddr={clinicslot[2]}
+                        // handleSubmit={}
+                        />
+                        <Button style={{ float: "right" }} type="submit">Submit</Button>
+                      </Form>
+                    </Step>
 
-                <Step label="confirmation">
-                  <Message text={`Reference Number:${uniqueCode}.Your Covid-19 Test has been successfully 
-                  booked at ${clinicslot[1]} on ${dateSlot} at ${timeSlot}. Please refer to the above reference number to update or cancel your booking.`}/>
-                </Step>
+                    <Step label="confirmation">
+                      <Message text={`Reference Number:${uniqueCode}.Your Covid-19 Test has been successfully 
+                  booked at ${clinicslot[1]} on ${dateSlot} at ${timeSlot}. Please refer to the above reference number to update or cancel your booking.`} />
+                    </Step>
+                  </MultiStepForm>
+                  {/* Show and hide buttons */}
+                  {
+                    (active !== 4) && <Button id="prev"
+                      onClick={active !== 1 ? () => { setActive(active - 1) } : ""}
+                      style={{ backgroundColor: "purple", border: "none" }}
+                    >{active === 1 ? <Link className="link" to="/">Previous</Link> : "Previous"}</Button>
+                  }
+                  {(active < 3) && (
+                    <Button id="next"
+                      onClick={() => { setActive(active + 1); }}
+                      style={{ float: 'right', backgroundColor: "purple", border: "none" }}
+                    >
+                      Next
+                    </Button>
+                  )}
+                </div>
+              </div>
 
-              </MultiStepForm>
-
-              {/* Show and hide buttons */}
-              {
-                (active !== 4) && <Button id="prev"
-                  onClick={active!==1 ? () => { setActive(active - 1) }:""}
-                  style={{ backgroundColor: "purple", border: "none" }}
-                >{active===1 ? <Link className="link" to="/">Previous</Link>:"Previous"}</Button>
-              }
-              {(active < 3) && (
-                <Button id="next"
-                  onClick={() => { setActive(active + 1); }}
-                  style={{ float: 'right', backgroundColor: "purple", border: "none" }}
-                >
-                  Next
-                </Button>
-              )}
             </Route>
             <Route path="/update" exact strict>
-                <UpdateSlot/>
+              <UpdateSlot />
             </Route>
             <Route path="/cancel" exact strict>
-                <CancelSlot/>
+              <CancelSlot />
             </Route>
             <Route path="/cancel/success" exact strict>
-                <Message text="Your booking has been cancelled."/>
+              <Message text="Your booking has been cancelled." />
             </Route>
             <Route path="/update" exact strict>
-                <CancelSlot/>
+              <CancelSlot />
             </Route>
             <Route path="/update/success" exact strict>
-                <Message text="Your booking has been updated."/>
+              <Message text="Your booking has been updated." />
             </Route>
           </Switch>
         </div>

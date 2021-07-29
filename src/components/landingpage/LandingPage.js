@@ -10,26 +10,33 @@ function LandingPage(props) {
     return (
         <div id = "LandingPage">
             <table className = "Landing">
-                <tr>
+                <tr style={{height:"100vh"}}>
                     <td class = "logo">
                         <img src = {img2} alt ="" height='auto' width='auto' />
                     </td>
                     <td class = "Start">
                         <h1>Let's Begin! </h1>
-                        <p>Simply key in your Flight Number and find the nearest clinic that you can book for your Covid-19 test exactly 72 hours prior to take-off.</p>
-                        <Link className="link" to="/form"> <Button
+                        <br/>
+                        <div className="padding">
+                        <p className="left">Simply key in your Flight Number and find the nearest clinic that you can book for your Covid-19 test exactly 72 hours prior to take-off.</p>
+                        <Link className="link right" to="/form"> <Button
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
                         >Get started</Button></Link>
+                        </div>
 
-                        <p>Want to change your booking? Click the "Update booking" button.</p>
-                        <Link className="link" to="/update"><Button
+                        <div className="padding">
+                        <p className="left">Want to change your booking? Click the "Update booking" button.</p>
+                        <Link className="link right" to="/update"><Button
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
-                        >Update slot</Button></Link>
+                        >Update booking</Button></Link>
+                        </div>
 
-                        <p>Want to cancel your booking? Click the "Cancel booking" button.</p>
-                        <Link className="link" to="/cancel"><Button
+                        <div className="padding">
+                        <p className="left">Want to cancel your booking? Click the "Cancel booking" button.</p>
+                        <Link className="link right" to="/cancel"><Button
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
                         >Cancel booking</Button></Link>
+                        </div>
                     </td>
                 </tr>
             </table>

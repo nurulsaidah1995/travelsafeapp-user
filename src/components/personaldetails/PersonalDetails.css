@@ -8,3 +8,14 @@
     justify-content: center;
     border-radius: 8px;
 }
+
+.pd-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    padding-top: 50px;
+}

@@ -14,6 +14,22 @@
     
   }
 
+  .padding{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+.left{
+  /* float: left; */
+  width: 60%;
+  text-align: left;
+}
+.right{
+  float: right;
+  width: 30%;
+}
+
  
 table,
 th,
@@ -25,5 +41,5 @@ td {padding: 70px 0;
 
 background-color: rgb(41, 14, 90);
 color: rgb(250, 232, 232);
-font-family: 'Times New Roman', serif;
+/* font-family: 'Times New Roman', serif; */
 }
