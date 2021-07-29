@@ -237,8 +237,8 @@ function App() {
 
               {/* Show and hide buttons */}
               {
-                <Button id="prev"
-                  onClick={active!==1? () => { setActive(active - 1) }:""}
+                (active !== 4) && <Button id="prev"
+                  onClick={active!==1 ? () => { setActive(active - 1) }:""}
                   style={{ backgroundColor: "purple", border: "none" }}
                 >{active===1?<Link to="/">Previous</Link>:"Previous"}</Button>
               }
