@@ -233,7 +233,7 @@ function App() {
                     </Step>
 
                     <Step label="confirmation">
-                      <Message text={`Reference Number:${uniqueCode}.Your Covid-19 Test has been successfully 
+                      <Message heading={`Reference Number:${uniqueCode}`} text={`Your Covid-19 Test has been successfully 
                   booked at ${clinicslot[1]} on ${dateSlot} at ${timeSlot}. Please refer to the above reference number to update or cancel your booking.`} />
                     </Step>
                   </MultiStepForm>
@@ -263,13 +263,13 @@ function App() {
               <CancelSlot />
             </Route>
             <Route path="/cancel/success" exact strict>
-              <Message text="Your booking has been cancelled." />
+              <Message heading="Your booking has been cancelled." />
             </Route>
             <Route path="/update" exact strict>
               <CancelSlot />
             </Route>
             <Route path="/update/success" exact strict>
-              <Message text="Your booking has been updated." />
+              <Message heading="Your booking has been updated." />
             </Route>
           </Switch>
         </div>
