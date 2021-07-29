@@ -9,20 +9,32 @@ import Form from 'react-bootstrap/Form'
 import { MultiStepForm, Step } from 'react-multi-form';
 import Message from './components/message/Message'
 import PersonalDetails from './components/personaldetails/PersonalDetails';
+// import LandingPage from './components/landingpage/LandingPage';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams, useHistory
+} from "react-router-dom";
+import LandingPage from './components/landingpage/LandingPage';
 var ts = require("time-slots-generator");
 var moment = require("moment")
 
 function App() {
   const [active, setActive] = useState(1)
-  
+
   // Page 1: Flight Number
   let [flightNo, setFlightNo] = useState("")
 
   // Page 2: Choose a slot
   let [timeslots, setTimeSlots] = useState([]);
   let [dateslots, setDateSlots] = useState([]);
+  let [clinicslots, setClinicSlots] = useState([]);
   let [timeSlot, setTimeSlot] = useState("")
   let [dateSlot, setDateSlot] = useState("")
+  let [clinicslot, setClinicSlot] = useState("")
 
   // Page 3: Personal Details
   let [name, setName] = useState("")
@@ -33,12 +45,11 @@ function App() {
   console.log(timeSlot)
   console.log(flightNo)
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setClinicId(1)
+  function handleSubmit() {
+    // e.preventDefault();
     // setRegistered(Date.now())
     // setSwabStatus()
-    setClinicId(1)
+    setClinicId(clinicId + 1)
     console.log("name", name)
     console.log("clinicId", clinicId)
     console.log("nric", nric)
@@ -57,7 +68,7 @@ function App() {
       "timeslot": timeSlot,
       "uniqueCode": ""
     }
-    var config = {
+    let postBooking_config = {
       method: 'post',
       url: 'http://localhost:9000/booking',
       headers: {
@@ -66,7 +77,7 @@ function App() {
       data: json
     };
 
-    axios(config)
+    axios(postBooking_config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         // setSlots(response.data)
@@ -75,11 +86,13 @@ function App() {
         console.log(error);
       });
 
-    setActive(active + 1)
   }
 
   useEffect(() => {
     handlePageChange()
+    if (active === 3) {
+      handleSubmit();
+    }
   }, [active])
 
   function handlePageChange() {
@@ -88,7 +101,7 @@ function App() {
       case 1:
         break;
       case 2:
-        var config = {
+        let getFlight_config = {
           method: 'get',
           url: `http://localhost:9000/flight/flightCode/${flightNo}`,
           headers: {
@@ -96,10 +109,12 @@ function App() {
           }
         };
 
-        axios(config)
+        axios(getFlight_config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
             // setSlots(response.data)
+
+            /* Display date */
             const flightTimeDate = response.data[0].flightDateTime
             console.log(flightTimeDate)
             let date1 = moment(flightTimeDate).subtract(3, 'days').format("DD/MM/YYYY")
@@ -118,6 +133,24 @@ function App() {
             console.log(error);
           });
 
+        /* Display time */
+        let getClinics_config = {
+          method: 'get',
+          url: 'http://localhost:9000/clinic',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+        axios(getClinics_config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+            let clinics = response.data.map((clinic) => {
+              return clinic.name;
+            });
+            console.log(clinics)
+
+            setClinicSlots(clinics)
+          })
         const timesToBlock = [["0:00", "8:00"], ["21:00", "24:00"]]
         function convertBlockTimes(...beforeConvert) {
           console.log(beforeConvert)
@@ -152,60 +185,78 @@ function App() {
     }
   }
 
+  let h2 = useHistory()
+
   return (
     <div className="App">
+      <Router>
+        <div>
+          <Switch>
+            <Route path="/" exact strict >
+              <LandingPage />
+            </Route>
+            <Route path={'/form'} >
+              {/* <Employee /> */}
+              {/* Each Step represents the component to render */}
+              <MultiStepForm activeStep={active} accentColor="purple">
 
-      {/* Each Step represents the component to render */}
-      <MultiStepForm activeStep={active} accentColor="purple">
+                <Step label="flight number">
+                  <GetSlots setFlightNo={(flightNum) => setFlightNo(flightNum)} />
+                </Step>
 
-        <Step label="flight number">
-          <GetSlots setFlightNo={(flightNum) => setFlightNo(flightNum)} />
-        </Step>
+                <Step label="choose a slot">
+                  <BookSlot
+                    flight={flightNo}
+                    setTimeSlot={(slot) => setTimeSlot(slot)}
+                    setDateSlot={(slot) => setDateSlot(slot)}
+                    setClinicSlot={(slot) => setClinicSlot(slot)}
+                    time={timeslots}
+                    date={dateslots}
+                    clinic={clinicslots}
+                  />
+                </Step>
 
-        <Step label="choose a slot">
-          <BookSlot
-            flight={flightNo}
-            setTimeSlot={(slot) => setTimeSlot(slot)}
-            setDateSlot={(slot) => setDateSlot(slot)}
-            time={timeslots}
-            date={dateslots}
-          />
-        </Step>
+                <Step label="personal details">
+                  <Form>
+                    <PersonalDetails
+                      setName={(name) => { setName(name) }}
+                      // setClinicId={(clinicId) => { setClinicId(clinicId) }}
+                      setNric={(nric) => { setNric(nric) }}
+                      setPhoneNo={(phoneNo) => { setPhoneNo(phoneNo) }}
+                    // handleSubmit={}
+                    />
+                    {/* <Button type="submit">Submit</Button> */}
+                  </Form>
+                </Step>
 
-        <Step label="personal details">
-          <Form onSubmit={(e) => handleSubmit(e)}>
-            <PersonalDetails
-              setName={(name) => { setName(name) }}
-              // setClinicId={(clinicId) => { setClinicId(clinicId) }}
-              setNric={(nric) => { setNric(nric) }}
-              setPhoneNo={(phoneNo) => { setPhoneNo(phoneNo) }}
-            // handleSubmit={}
-            />
-            <Button type="submit">Submit</Button>
-          </Form>
-        </Step>
+                <Step label="confirmation">
+                  <Message />
+                </Step>
 
-        <Step label="confirmation">
-          <Message />
-        </Step>
+              </MultiStepForm>
 
-      </MultiStepForm>
+              {/* Show and hide buttons */}
+              {
+                <Button id="prev"
+                  onClick={active!==1? () => { setActive(active - 1) }:""}
+                  style={{ backgroundColor: "purple", border: "none" }}
+                >{active===1?<Link to="/">Previous</Link>:"Previous"}</Button>
+              }
+              {(active < 4) && (
+                <Button id="next"
+                  onClick={() => { setActive(active + 1); }}
+                  style={{ float: 'right', backgroundColor: "purple", border: "none" }}
+                >
+                  {active === 3 ? "Submit" : "Next"}
+                </Button>
+              )}
+            </Route>
+          </Switch>
+        </div>
+      </Router>
 
-      {/* Show and hide buttons */}
-      {active !== 1 && (
-        <Button id="prev"
-          onClick={() => { setActive(active - 1) }}
-          style={{ backgroundColor: "purple", border: "none" }}
-        >Previous</Button>
-      )}
-      {(active < 3) && (
-        <Button id="next"
-          onClick={() => { setActive(active + 1) }}
-          style={{ float: 'right', backgroundColor: "purple", border: "none" }}
-        >
-          Next
-        </Button>
-      )}
+
+
     </div>
   )
 }

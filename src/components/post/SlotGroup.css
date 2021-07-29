@@ -1,6 +1,7 @@
 .bar {
   /* display: inline-block; */
-  width: 100px;
+  width: 120px;
+  box-sizing: border-box;
   height: 100%;
   border: 2px solid purple;
   cursor: pointer;

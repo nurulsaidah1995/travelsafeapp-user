@@ -21,12 +21,12 @@ function BookSlot(props) {
             <SlotGroup group="clinic" handleClick={() => {
                 setShowDates(true);
             }
-            } data={["clinic 1", "clinic 2"]} />
+            } data={props.clinic} />
             {showDates && (
                 <div>
                     <label>Choose your date:</label>
                     <SlotGroup group="date" handleClick={() => {
-                setShowTimes(true)}} data={props.date} />
+                setShowTimes(true);} } data={props.date} />
                 </div>
             )}
             {showTimes && (
