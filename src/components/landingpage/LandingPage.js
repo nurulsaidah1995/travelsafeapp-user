@@ -1,15 +1,27 @@
 import Button from 'react-bootstrap/Button'
 import { useHistory,Link } from 'react-router-dom'
+import './LandingPage.css'
+import img2 from './TSLogo.jpeg'
+ 
+
 
 function LandingPage(props) {
     const h1= useHistory()
     return (
-        <div>
-            <h1>Travelsafe</h1>
-            <p>We take your flight number to get the flight time and date to display the slots available 3 days before your flight.</p>
-            <Button
-            style={{ float: 'right', backgroundColor: "purple", border: "none" }}
-            ><Link to="/form">Get started</Link></Button>
+        <div id = "LandingPage">
+            <table class = "Landing">
+                <tr>
+                    <th>
+                        <img src = {img2} alt ="" height='auto' width='auto' />
+                    </th>
+                    <td>
+                        <p>Simply key in your Flight Number and find the nearest clinic that you can book for your Covid-19 test exactly 72 hours prior to take-off.</p>
+                        <Button
+                        style={{ float: 'right', backgroundColor: "purple", border: "none" }}
+                        ><Link to="/form">Get started</Link></Button>
+                    </td>
+                </tr>
+            </table>
         </div>
     )
 }
