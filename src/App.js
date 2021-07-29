@@ -59,7 +59,7 @@ function App() {
  
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("timeSlot", timeSlot)
+    console.log("timeSlot", moment(timeSlot,'HH:mm').format('HH:mm:ss'))
     // setTimeSlot(new Date())
     let json = {
       "name": name,
@@ -68,7 +68,7 @@ function App() {
       "phoneNo": phoneNo,
       "registered": "",
       "swabStatus": "",
-      "timeslot": dateTime,
+      "timeslot": moment(timeSlot,'HH:mm').format('HH:mm:ss'),
       "uniqueCode": "",
       "bookedDate": new Date("2021-08-01"),
       "bookedTime":"09:00:00"
@@ -116,9 +116,9 @@ function App() {
             /* Display date */
             const flightTimeDate = response.data[0].flightDateTime
             console.log(flightTimeDate)
-            let date1 = moment(flightTimeDate).subtract(3, 'days').format("DD/MM/YYYY")
-            let date2 = moment(flightTimeDate).subtract(2, 'days').format("DD/MM/YYYY")
-            let date3 = moment(flightTimeDate).subtract(1, 'days').format("DD/MM/YYYY")
+            let date1 = moment(flightTimeDate).subtract(3, 'days').format("YYYY-MM-DD")
+            let date2 = moment(flightTimeDate).subtract(2, 'days').format("YYYY-MM-DD")
+            let date3 = moment(flightTimeDate).subtract(1, 'days').format("YYYY-MM-DD")
             console.log(date1)
             console.log(date2)
             console.log(date3)
