@@ -70,7 +70,7 @@ function App() {
       "swabStatus": "",
       "timeslot": moment(timeSlot,'HH:mm').format('HH:mm:ss'),
       "uniqueCode": "",
-      "bookedDate": new Date("2021-08-01"),
+      "bookedDate": dateSlot,
       "bookedTime":"09:00:00"
     }
     console.log(json)
