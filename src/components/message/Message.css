@@ -1,0 +1,7 @@
+
+  
+  .child {
+    padding:100px 0;
+    margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
+    text-align: center;
+  }

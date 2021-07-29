@@ -196,7 +196,7 @@ function App() {
             <Route path="/" exact strict >
               <LandingPage />
             </Route>
-            <Route path={'/form'} >
+            <Route path={'/form'} exact strict >
               {/* <Employee /> */}
               {/* Each Step represents the component to render */}
               <MultiStepForm activeStep={active} accentColor="purple">

@@ -1,0 +1,21 @@
+#LandingPage {
+    height: 100vh;
+    width:100%;
+    /* background:  #ffffff 50%,#1a0b44 50%); */
+    padding: 200px,0;
+    
+}
+.Landing {
+    margin-right: auto;
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+    height:100%;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    padding: 5px;
+  }
