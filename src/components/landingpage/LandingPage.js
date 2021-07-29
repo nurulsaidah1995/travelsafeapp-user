@@ -11,10 +11,11 @@ function LandingPage(props) {
         <div id = "LandingPage">
             <table className = "Landing">
                 <tr>
-                    <th>
+                    <td class = "logo">
                         <img src = {img2} alt ="" height='auto' width='auto' />
-                    </th>
-                    <td>
+                    </td>
+                    <td class = "Start">
+                        <h1>Let's Begin! </h1>
                         <p>Simply key in your Flight Number and find the nearest clinic that you can book for your Covid-19 test exactly 72 hours prior to take-off.</p>
                         <Link className="link" to="/form"> <Button
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
