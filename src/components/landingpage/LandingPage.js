@@ -9,16 +9,26 @@ function LandingPage(props) {
     const h1= useHistory()
     return (
         <div id = "LandingPage">
-            <table class = "Landing">
+            <table className = "Landing">
                 <tr>
                     <th>
                         <img src = {img2} alt ="" height='auto' width='auto' />
                     </th>
                     <td>
                         <p>Simply key in your Flight Number and find the nearest clinic that you can book for your Covid-19 test exactly 72 hours prior to take-off.</p>
-                        <Button
+                        <Link className="link" to="/form"> <Button
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
-                        ><Link className="link" to="/form">Get started</Link></Button>
+                        >Get started</Button></Link>
+
+                        <p>Want to change your booking? Click the "Update booking" button.</p>
+                        <Link className="link" to="/update"><Button
+                        style={{ float: 'right', backgroundColor: "purple", border: "none" }}
+                        >Update slot</Button></Link>
+
+                        <p>Want to cancel your booking? Click the "Cancel booking" button.</p>
+                        <Link className="link" to="/cancel"><Button
+                        style={{ float: 'right', backgroundColor: "purple", border: "none" }}
+                        >Cancel booking</Button></Link>
                     </td>
                 </tr>
             </table>

@@ -14,10 +14,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams, useHistory
+  Link
 } from "react-router-dom";
+import UpdateSlot from './components/update/UpdateSlot';
+import CancelSlot from './components/delete/CancelSlot';
 import LandingPage from './components/landingpage/LandingPage';
 var ts = require("time-slots-generator");
 var moment = require("moment")
@@ -26,53 +26,54 @@ function App() {
   const [active, setActive] = useState(1)
 
   // Page 1: Flight Number
-  let [flightNo, setFlightNo] = useState("")
+  const [flightNo, setFlightNo] = useState("")
 
   // Page 2: Choose a slot
-  let [timeslots, setTimeSlots] = useState([]);
-  let [dateslots, setDateSlots] = useState([]);
-  let [clinicslots, setClinicSlots] = useState([]);
-  let [timeSlot, setTimeSlot] = useState("")
-  let [dateSlot, setDateSlot] = useState("")
-  let [clinicslot, setClinicSlot] = useState("")
+  const [timeslots, setTimeSlots] = useState([]);
+  const [dateslots, setDateSlots] = useState([]);
+  const [clinicslots, setClinicSlots] = useState([]);
+  const [timeSlot, setTimeSlot] = useState("")
+  const [dateSlot, setDateSlot] = useState("")
+  const [dateTime, setDateTime] = useState("")
+  const [clinicslot, setClinicSlot] = useState("")
+  const [uniqueCode, setUniqueCode] = useState("")
+
 
   // Page 3: Personal Details
-  let [name, setName] = useState("")
-  let [clinicId, setClinicId] = useState(1)
-  let [nric, setNric] = useState("")
-  let [phoneNo, setPhoneNo] = useState("")
+  const [name, setName] = useState("")
+  const [nric, setNric] = useState("")
+  const [phoneNo, setPhoneNo] = useState("")
 
   console.log(timeSlot)
   console.log(flightNo)
   console.log(active)
-  
+
   useEffect(() => {
     handlePageChange()
   }, [active])
 
+  // useEffect(() => {
+  //   // formatDateTime(timeSlot, dateSlot)
+  // }, [timeSlot, dateSlot])
+
+ 
   function handleSubmit(e) {
     e.preventDefault();
-    // setRegistered(Date.now())
-    // setSwabStatus()
-    setClinicId(clinicId + 1)
-    console.log("name", name)
-    console.log("clinicId", clinicId)
-    console.log("nric", nric)
-    console.log("phoneNo", phoneNo)
-    // console.log("registered", registered)
-    // console.log("swabStatus", swabStatus)
     console.log("timeSlot", timeSlot)
-    setTimeSlot(new Date())
+    // setTimeSlot(new Date())
     let json = {
       "name": name,
-      "clinicID": clinicId,
+      "clinicID": clinicslot[0],
       "nric": nric,
       "phoneNo": phoneNo,
       "registered": "",
       "swabStatus": "",
-      "timeslot": timeSlot,
-      "uniqueCode": ""
+      "timeslot": dateTime,
+      "uniqueCode": "",
+      "bookedDate": new Date("2021-08-01"),
+      "bookedTime":"09:00:00"
     }
+    console.log(json)
     let postBooking_config = {
       method: 'post',
       url: 'http://localhost:9000/booking',
@@ -84,20 +85,17 @@ function App() {
 
     axios(postBooking_config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         // setSlots(response.data)
+        setUniqueCode(response.data.uniqueCode)
       })
       .catch(function (error) {
         console.log(error);
       });
       setActive(active+1)
-
   }
 
-
-
   function handlePageChange() {
-    // console.log("test")
     switch (active) {
       case 1:
         break;
@@ -146,10 +144,11 @@ function App() {
           .then(function (response) {
             console.log(JSON.stringify(response.data));
             let clinics = response.data.map((clinic) => {
-              return clinic.name;
+              let obj = {}
+              obj.clinicID = clinic.clinicID
+              obj.name = clinic.name
+              return obj;
             });
-            console.log(clinics)
-
             setClinicSlots(clinics)
           })
         const timesToBlock = [["0:00", "8:00"], ["21:00", "24:00"]]
@@ -185,8 +184,6 @@ function App() {
         break;
     }
   }
-
-  let h2 = useHistory()
 
   return (
     <div className="App">
@@ -231,7 +228,8 @@ function App() {
                 </Step>
 
                 <Step label="confirmation">
-                  <Message />
+                  <Message text={`Reference Number:${uniqueCode}.Your Covid-19 Test has been successfully 
+                  booked at ${clinicslot[1]} on ${dateSlot} at ${timeSlot}. Please refer to the above reference number to update or cancel your booking.`}/>
                 </Step>
 
               </MultiStepForm>
@@ -251,6 +249,21 @@ function App() {
                   Next
                 </Button>
               )}
+            </Route>
+            <Route path="/update" exact strict>
+                <UpdateSlot/>
+            </Route>
+            <Route path="/cancel" exact strict>
+                <CancelSlot/>
+            </Route>
+            <Route path="/cancel/success" exact strict>
+                <Message text="Your booking has been cancelled."/>
+            </Route>
+            <Route path="/update" exact strict>
+                <CancelSlot/>
+            </Route>
+            <Route path="/update/success" exact strict>
+                <Message text="Your booking has been updated."/>
             </Route>
           </Switch>
         </div>

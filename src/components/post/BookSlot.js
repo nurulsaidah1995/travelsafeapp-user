@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ButtonGroup, Button } from 'react-bootstrap'
-import TableComp from '../table/TableComp'
 import SlotGroup from './SlotGroup'
+import SlotGroup2 from './SlotGroup2'
 
 // const mockSlots = ["slot 1", "slot 2"]
 function BookSlot(props) {
@@ -17,9 +17,7 @@ function BookSlot(props) {
             <h1>this is Book slot page</h1>
             {/* <TableComp data={props.data}/> */}
             <label>Choose your clinic:</label>
-            <SlotGroup group="clinic" handleClick={props.setClinicSlot
-            
-            } data={props.clinic} />
+            <SlotGroup2 group="clinic" handleClick={props.setClinicSlot} data={props.clinic} />
             {
                 <div>
                     <label>Choose your date:</label>
