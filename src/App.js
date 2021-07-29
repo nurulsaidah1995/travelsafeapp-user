@@ -44,9 +44,14 @@ function App() {
 
   console.log(timeSlot)
   console.log(flightNo)
+  console.log(active)
+  
+  useEffect(() => {
+    handlePageChange()
+  }, [active])
 
-  function handleSubmit() {
-    // e.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
     // setRegistered(Date.now())
     // setSwabStatus()
     setClinicId(clinicId + 1)
@@ -85,15 +90,11 @@ function App() {
       .catch(function (error) {
         console.log(error);
       });
+      setActive(active+1)
 
   }
 
-  useEffect(() => {
-    handlePageChange()
-    if (active === 3) {
-      handleSubmit();
-    }
-  }, [active])
+
 
   function handlePageChange() {
     // console.log("test")
@@ -217,7 +218,7 @@ function App() {
                 </Step>
 
                 <Step label="personal details">
-                  <Form>
+                  <Form onSubmit={handleSubmit}>
                     <PersonalDetails
                       setName={(name) => { setName(name) }}
                       // setClinicId={(clinicId) => { setClinicId(clinicId) }}
@@ -225,7 +226,7 @@ function App() {
                       setPhoneNo={(phoneNo) => { setPhoneNo(phoneNo) }}
                     // handleSubmit={}
                     />
-                    {/* <Button type="submit">Submit</Button> */}
+                    <Button style={{float:"right"}} type="submit">Submit</Button>
                   </Form>
                 </Step>
 
@@ -240,23 +241,20 @@ function App() {
                 (active !== 4) && <Button id="prev"
                   onClick={active!==1 ? () => { setActive(active - 1) }:""}
                   style={{ backgroundColor: "purple", border: "none" }}
-                >{active===1?<Link to="/">Previous</Link>:"Previous"}</Button>
+                >{active===1 ? <Link className="link" to="/">Previous</Link>:"Previous"}</Button>
               }
-              {(active < 4) && (
+              {(active < 3) && (
                 <Button id="next"
                   onClick={() => { setActive(active + 1); }}
                   style={{ float: 'right', backgroundColor: "purple", border: "none" }}
                 >
-                  {active === 3 ? "Submit" : "Next"}
+                  Next
                 </Button>
               )}
             </Route>
           </Switch>
         </div>
       </Router>
-
-
-
     </div>
   )
 }

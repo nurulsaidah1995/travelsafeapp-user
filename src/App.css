@@ -6,7 +6,14 @@
   /* padding: 20px; */
   width: 70%;
 }
-#route:hover{
+
+
+.link {
+  color:white
+}
+
+.link:hover{
+  color:white;
   text-decoration: none;
 }
 
