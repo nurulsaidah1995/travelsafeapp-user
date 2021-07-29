@@ -1,12 +1,14 @@
 .bar {
-  width: 50px;
+  /* display: inline-block; */
+  width: 100px;
   height: 100%;
-  border: 2px solid aquamarine;
+  border: 2px solid purple;
   cursor: pointer;
   border-radius: 4px;
   text-align: center;
 }
 
 input[type="radio"]:checked ~ label {
-  background-color: aquamarine;
+  background-color: purple;
+  color: white
 }

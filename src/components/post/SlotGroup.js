@@ -3,11 +3,11 @@ function SlotGroup(props){
     return (
         <div>
             {
-                props.data.map((slot,i)=>{
+                props.data.map((slot)=>{
                     return(
                         <div>
-                        <input type="radio" name="timeslot" id={i} onClick={()=>props.handleClick(slot)} hidden/>
-                        <label class="bar" name={i} for={i}>{slot}</label>
+                        <input type="radio" name={props.group} id={slot} onClick={()=>props.handleClick(slot)} hidden/>
+                        <label className="bar" name={slot} htmlFor={slot}>{slot}</label>
                         </div>
                     )
                 })
