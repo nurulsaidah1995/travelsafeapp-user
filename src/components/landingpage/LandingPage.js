@@ -25,10 +25,10 @@ function LandingPage(props) {
                         </div>
 
                         <div className="padding">
-                        <p className="left">Want to change your booking? Click the "Update booking" button.</p>
+                        <p className="left">Want to edit your booking? Click the "Edit booking" button.</p>
                         <Link className="link right" to="/update"><Button
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
-                        >Update booking</Button></Link>
+                        >Edit booking</Button></Link>
                         </div>
 
                         <div className="padding">
@@ -36,6 +36,13 @@ function LandingPage(props) {
                         <Link className="link right" to="/cancel"><Button
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
                         >Cancel booking</Button></Link>
+                        </div>
+                       
+                        <div className="padding">
+                        <p className="left">Want to view your swab test result? Click the "View Result" button.</p>
+                        <Link className="link right" to="/view/report"><Button
+                        style={{ float: 'right', backgroundColor: "purple", border: "none" }}
+                        >View Result</Button></Link>
                         </div>
                     </td>
                 </tr>

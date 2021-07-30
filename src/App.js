@@ -9,12 +9,13 @@ import Form from 'react-bootstrap/Form'
 import { MultiStepForm, Step } from 'react-multi-form';
 import Message from './components/message/Message'
 import PersonalDetails from './components/personaldetails/PersonalDetails';
+import ViewReport from './components/get/ViewReport';
 // import LandingPage from './components/landingpage/LandingPage';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, useParams
 } from "react-router-dom";
 import UpdateSlot from './components/update/UpdateSlot';
 import CancelSlot from './components/delete/CancelSlot';
@@ -51,10 +52,6 @@ function App() {
   useEffect(() => {
     handlePageChange()
   }, [active])
-
-  // useEffect(() => {
-  //   // formatDateTime(timeSlot, dateSlot)
-  // }, [timeSlot, dateSlot])
 
 
   function handleSubmit(e) {
@@ -233,7 +230,7 @@ function App() {
                     </Step>
 
                     <Step label="confirmation">
-                      <Message heading={`Reference Number:${uniqueCode}`} text={`Your Covid-19 Test has been successfully 
+                      <Message title="Success" heading={`Reference Number:${uniqueCode}`} text={`Your Covid-19 Test has been successfully 
                   booked at ${clinicslot[1]} on ${dateSlot} at ${timeSlot}. Please refer to the above reference number to update or cancel your booking.`} />
                     </Step>
                   </MultiStepForm>
@@ -263,14 +260,28 @@ function App() {
               <CancelSlot />
             </Route>
             <Route path="/cancel/success" exact strict>
-              <Message heading="Your booking has been cancelled." />
+              <Message title="Success" heading="Your booking has been cancelled." />
             </Route>
             <Route path="/update" exact strict>
               <CancelSlot />
             </Route>
             <Route path="/update/success" exact strict>
-              <Message heading="Your booking has been updated." />
+              <Message title="Success" heading="Your booking has been updated." />
             </Route>
+            <Route path="/view/report" exact strict>
+              <ViewReport />
+            </Route>
+            <Route path="/view/report/negative" exact strict>
+              <Message title="Result is:" heading="Negative" text="Enjoy your travel and stay safe! :)" />
+            </Route>
+            <Route path="/view/report/positive" exact strict>
+              <Message title="Result is:" heading="Positive" text="Sorry but you are not able to proceed with travel." />
+            </Route>
+            <Route path="/view/report/notavailable" exact strict>
+              <Message title="Sorry" heading="Your report is not available" text="" />
+            </Route>
+
+
           </Switch>
         </div>
       </Router>
