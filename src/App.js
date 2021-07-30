@@ -186,7 +186,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div>
+        <div className="newcontainer">
           <Switch>
             <Route path="/" exact strict >
               <LandingPage />
@@ -194,8 +194,8 @@ function App() {
             <Route path={'/form'} exact strict >
               {/* <Employee /> */}
               {/* Each Step represents the component to render */}
-              <div className="step-form-container">
-                <div className="step-form">
+              <div className="step-container">
+                <div className="step-former">
                   <MultiStepForm activeStep={active} accentColor="purple">
                     <Step label="flight number">
                       <GetSlots setFlightNo={(flightNum) => setFlightNo(flightNum)} />
@@ -249,8 +249,9 @@ function App() {
                       Next
                     </Button>
                   )}
+                  </div>
                 </div>
-              </div>
+            
 
             </Route>
             <Route path="/update" exact strict>
