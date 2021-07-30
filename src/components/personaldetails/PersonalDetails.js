@@ -9,11 +9,13 @@ function PersonalDetails(props) {
 
     
     return (
+        
         <div className="pd-wrapper">
             <div id="title">
                 <h2>{props.clinicName}</h2>
                 <p>{props.clinicAddr}</p>
             </div>
+            
             <Col className="form">
                 <Row>
                     <Col>

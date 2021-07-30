@@ -13,7 +13,8 @@ function BookSlot(props) {
 
 
     return (
-        <div>
+        <div className="step-form-container">
+                <div className="step-form">
             {/* <h1>this is Book slot page</h1> */}
             {/* <TableComp data={props.data}/> */}
             <label>Choose your clinic:</label>
@@ -34,6 +35,7 @@ function BookSlot(props) {
                     <SlotGroup group="time" handleClick={props.setTimeSlot} data={props.time} />
                 </div>
             }
+            </div>
         </div>
     )
 }

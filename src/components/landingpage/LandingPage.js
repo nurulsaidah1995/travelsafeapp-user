@@ -26,7 +26,7 @@ function LandingPage(props) {
 
                         <div className="padding">
                         <p className="left">Want to edit your booking? Click the "Edit booking" button.</p>
-                        <Link className="link right" to="/update"><Button
+                        <Link className="link right" to="/update"><Button 
                         style={{ float: 'right', backgroundColor: "purple", border: "none" }}
                         >Edit booking</Button></Link>
                         </div>

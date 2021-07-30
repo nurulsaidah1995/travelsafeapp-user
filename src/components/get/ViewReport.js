@@ -69,7 +69,8 @@ function ViewReport() {
     }
 
     return (
-        <div>
+        <div className="step-form-container">
+                <div className="step-form">
             <Form onSubmit={(e) => getBooking(e)}>
                 <Form.Group className="mb-3">
                     <Form.Label>Enter your reference number:</Form.Label>
@@ -81,12 +82,13 @@ function ViewReport() {
             We'll never share your email with anyone else.
         </Form.Text> */}
                 </Form.Group>
-                <Button type="submit"
+                <Button className= "purplebutton" type="submit"
                     style={{ float: 'right', backgroundColor: "purple", border: "none" }}
                 >
                     View Report
                 </Button>
             </Form>
+            </div>
         </div>
     )
 }

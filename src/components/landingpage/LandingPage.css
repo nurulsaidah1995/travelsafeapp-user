@@ -43,3 +43,8 @@ background-color: rgb(41, 14, 90);
 color: rgb(250, 232, 232);
 /* font-family: 'Times New Roman', serif; */
 }
+
+button{
+  height: 33px;
+  width: 180px;
+}

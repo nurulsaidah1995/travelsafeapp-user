@@ -118,7 +118,8 @@ function CancelSlot() {
 
 
     return (
-        <div>
+        <div className="step-form-container">
+                <div className="step-form">
 
             <Form onSubmit={(e) => getBooking(e)}>
                 <Form.Group className="mb-3">
@@ -131,7 +132,7 @@ function CancelSlot() {
                     We'll never share your email with anyone else.
                 </Form.Text> */}
                 </Form.Group>
-                <Button type="submit"
+                <Button className="purplebutton" type="submit"
                     style={{ float: 'right', backgroundColor: "purple", border: "none" }}
                 >
                     Next
@@ -232,6 +233,7 @@ function CancelSlot() {
                     </Modal.Footer>
                 </Form>
             </Modal>
+        </div>
         </div>
     )
 }

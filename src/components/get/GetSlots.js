@@ -6,6 +6,8 @@ import "./GetSlots.css"
 function GetSlots(props) {
 
     return (
+        <div className="step-form-container">
+        <div className="step-form">
         <div id="wrapperGet">
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -19,6 +21,8 @@ function GetSlots(props) {
                 </Form.Text> */}
                 </Form.Group>
             </Form>
+            </div>
+            </div>
         </div> 
     )
 }

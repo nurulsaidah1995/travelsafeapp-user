@@ -10,10 +10,13 @@
 
 .step-form{
   width: 70%;
+  margin-top:20%;
 }
 .step-form-container{
  display: flex;
  justify-content: center;
+ align-items: center;
+ top:25%;
 }
 
 
@@ -71,3 +74,10 @@ button:focus, button:active{
     transform: rotate(360deg);
   }
 }
+
+.purplebutton{
+  height: 35px ;
+  width: 80px ;
+  margin-right: 10px; 
+}
+
